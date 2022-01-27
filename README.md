@@ -5,8 +5,9 @@
 키퍼 홈페이지 데이터베이스
 
 ## Recent Patch note
-### keeper_db 0.8.2
-- 20220125 핫픽스 - 2
-    - `static_write_type` 테이블이 `static_write_title`로 통합되었습니다. `type varchar(40)`
-        - 기본값들은 대조표의 기본데이터 시트에 모두 기록되어있으며, 현재 `INSERT`로 type만 넣어주고 있습니다.
-        - 이에, `UPDATE`를 사용해 이미 있는 row의 `title` 의 값을 수정하는 것을 권장 드립니다. 
+### keeper_db 0.9.0
+- 20220125 DB패치노트
+    - 친구관계를 저장하는 `friend` 테이블을 추가했습니다.
+        - 친구 등록을 신청한 `follower`
+        - 신청대상인 `followee`
+        - 위 두 컬럼은 모두 `member` 테이블의 fk입니다.
