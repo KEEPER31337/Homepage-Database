@@ -1,0 +1,1 @@
+INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (63908, '익명게시판', 2, 'board');
