@@ -1,0 +1,1 @@
+ALTER TABLE `study_has_member` ADD COLUMN `register_time` DATETIME(6) NOT NULL DEFAULT (CURRENT_TIME);
