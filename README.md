@@ -5,19 +5,8 @@
 키퍼 홈페이지 데이터베이스
 
 ## Recent Patch note
-### keeper_db 0.30.0
-- 20220317 DB 패치노트
-- 새 컬럼이 추가되었습니다.
-- `member_job` `member_type` `member_rank` 
-    - `badge_thumbnail_id`
-        - `INT` `NOT NULL`
-        - 멤버의 직위, 상태, 등급의 뱃지 이미지를 가르키는 컬럼입니다.
-        - `thumbnail` 테이블의 fk입니다.
-        - 기본값은 공유 시트에 적어두겠습니다!
-- 기본값이 변경되었습니다.
-    - `file` `thumbnail`
-        - 기존에 square, rectangle로 표현되던 파일명들이 member, posting등 용도로 변경되었습니다.
-        - 뱃지관련 이미지들이 추가되었습니다.
-        - 이것도 공유 시트에 적어 놓겠습니당~
-    - `member`
-        - `id`가 1인 `virtual_member`의 `thumbnail_id`가 탈퇴회원 뱃지 이미지 `id`(6)를 가르킵니다. 
+### keeper_db 0.30.1
+- 20220317 DB 핫픽스 1
+    - `init.sql` 의 외래키 관련 버그가 해결되었습니다. @youareso98 
+        - workbench에서 `init.sql`을 자동 생성 시킬때 `thumbnail` 테이블의 기본값을 나중에 `INSERT`해서 생긴 문제였습니다.
+        - workbench는 뭔가 알아서 잘해줄 것 같았는데... 이런 문제가 있었네요 ㅠㅠㅠㅜ 앞으로 init 생성시킬때 조심하겠습니다!
