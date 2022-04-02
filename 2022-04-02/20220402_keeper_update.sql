@@ -1,0 +1,1 @@
+INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (11, '졸업생 게시판', NULL, 'board');
