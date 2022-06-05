@@ -1,0 +1,1 @@
+INSERT INTO `keeper`.`ctf_challenge_category` (`id`, `name`) VALUES (7, 'OSINT');
