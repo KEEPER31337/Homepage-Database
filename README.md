@@ -5,8 +5,13 @@
 키퍼 홈페이지 데이터베이스
 
 ## Recent Patch note
-### keeper_db 1.10.1
-- 20220821 DB 핫픽스
-- 컬럼 명 오타를 수정했습니다.
-    - `seminar_attendance_excuse`
-        - `absense_excuse` → `absence_excuse`
+### keeper_db 1.11.0
+- 20220824 DB 업데이트
+- 테이블을 추가했습니다.
+    - `merit_log`
+        - 상/벌점 관련 로그 테이블입니다.
+        - 부여자(관리자만 가능), 수여자, 시간, 상/벌점 유형을 기록합니다.
+    - `merit_type`
+        - 상/벌점 유형을 기록하는 테이블입니다.
+        - 점수, 상벌점 여부, 세부내용을 기록합니다.
+        - `id` 1번에 virtual 데이터가 기록되어있습니다. 노출되지 않게 주의해주세요!
