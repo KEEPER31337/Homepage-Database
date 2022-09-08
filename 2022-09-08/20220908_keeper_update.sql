@@ -1,0 +1,13 @@
+DELIMITER $$
+
+USE `keeper`$$
+DROP TRIGGER IF EXISTS `keeper`.`seminar_BEFORE_INSERT` $$
+USE `keeper`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `keeper`.`seminar_BEFORE_INSERT` BEFORE INSERT ON `seminar` FOR EACH ROW
+BEGIN
+	IF NEW.name IS NULL THEN
+        SET NEW.name = DATE_FORMAT(NEW.open_time,'%Y-%m-%d');
+    END IF;
+END$$
+
+DELIMITER ;
