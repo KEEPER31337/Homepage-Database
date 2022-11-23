@@ -5,8 +5,8 @@
 키퍼 홈페이지 데이터베이스
 
 ## Recent Patch note
-### keeper_db 1.16.1
-- 202210 DB 핫픽스1
-    - `TRIGGER`의 컬럼 오타가 수정되었습니다.
-        - `attendance_days` -> `total_attendance`
-    - update sql은 정상되어 있으므로 추가 업데이트는 없습니다.
+### keeper_db 1.17.0
+- 20221123 DB 업데이트
+    - 새 컬럼이 추가되었습니다.
+    - `ctf_flag.solved_time`
+    - 어떤 팀이 먼저 문제를 풀었는지 가려내기 위해, 각 문제 별로 어떤 팀이 언제 풀었는 지를 기록하는 컬럼입니다.
