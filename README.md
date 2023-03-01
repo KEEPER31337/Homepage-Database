@@ -4,20 +4,14 @@
 
 ## Recent Patch note
 
-### keeper_db 1.20.0-renew3.0
+### keeper_db 1.20.0-renew4.0
 
--   20230215 DB 업데이트
-    -   `comment` `category`
-        -   게시판 파트의 두 테이블이 이제 `parent_id` 컬럼을 self referencing 하도록 변경되었습니다.
-        -   이에, `parent_id` 가 0이었던 모든 데이터는 NULL로 전환되며, 컬럼도 nullable하게 변경되었습니다.
--   컬럼명이 변경 / 삭제되었습니다. `book`
-    -   `total` -> `total_quantity`
-    -   `enable` -> `current_quantity`
-    -   `borrow` 삭제
--   컬럼과 트리거가 추가/삭제되었습니다.`book_borrow_info`
-    -   `expire_date` default value가 없어졌습니다.
-        -   이에, INSERT 될 때 `expire_date` 가 NULL이면 borrow_date 로부터 14일을 더한 값을 넣어주는 트리거를 추가했습니다.
-        -   단, `borrow_date` 가 UPDATE 되더라도, `expire_date`가 자동으로 변경되지는 않습니다.
-    -   `register_time` `update_time` 이 추가되었습니다.
-        -   UPDATE가 동작하면 `update_time`또한 현재시각으로 자동 변경되는 트리거를 추가했습니다.
-    -   `quantity` 삭제
+- 20230301 DB 업데이트
+- 🌺3.1절🌺 업데이트입니다~ 무슨 의미를 가지는 날인지 생각해보면서, 공휴일과 개강을 만끽하도록 합시다! ^_____^
+
+- 컬럼이 제거되었습니다. `book`
+    - 기획 단에서 사용되지 않는다고 판단되어, `information` 컬럼이 제거되었습니다.
+- 테이블이 추가되었습니다. `book_borrow_status`
+    - 현재 대여 정보의 정적인 상태명들을 저장하는 테이블입니다.
+    - `대출 대기 중` `대출 거부` `대출 승인` `반납 대기 중` 등이 저장되어 있습니다. 
+    - 이에, `book_borrow_info`에 해당 테이블의 fk인 `status_id`가 추가되었습니다.
