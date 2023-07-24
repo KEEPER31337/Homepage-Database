@@ -287,15 +287,7 @@ DROP TABLE IF EXISTS `keeper`.`category` ;
 CREATE TABLE IF NOT EXISTS `keeper`.`category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(250) NOT NULL,
-  `parent_id` INT NULL,
-  `href` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_category_category1_idx` (`parent_id` ASC) VISIBLE,
-  CONSTRAINT `fk_category_category1`
-    FOREIGN KEY (`parent_id`)
-    REFERENCES `keeper`.`category` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -696,7 +688,7 @@ CREATE TABLE IF NOT EXISTS `keeper`.`game_member_info` (
   `play_date` DATE NOT NULL DEFAULT (CURRENT_DATE),
   PRIMARY KEY (`id`),
   INDEX `fk_game_member_info_member1_idx` (`member_id` ASC) VISIBLE,
-  UNIQUE INDEX `member_id_UNIQUE` (`member_id` ASC) VISIBLE,
+  UNIQUE INDEX `is_duplicated` (`member_id` ASC, `play_date` DESC) VISIBLE,
   CONSTRAINT `fk_game_member_info_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
@@ -1643,42 +1635,14 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `keeper`;
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (1, 'virtual_category', NULL, NULL);
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (219, 'KEEPER', NULL, NULL);
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (29422, '동아리 소개', 219, 'about');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (8, '이벤트', 219, 'event');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (9, '동아리 일정', 219, 'schedule');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (2, '게시판', NULL, NULL);
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (105, '공지사항', 2, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (6105, '건의사항', 2, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (116, '자유게시판', 2, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (147718, '연재글', 2, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (3, '동아리활동', NULL, NULL);
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (117, '발표자료', 3, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (105900, '스터디', 3, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (2996, '기술문서', 3, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (23400, '회계부', 3, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (34608, 'KUCIS', 3, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (5125, '정보', NULL, NULL);
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (508, '해킹대회정보', 5125, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (648, '유용한사이트', 5125, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (647, 'Tools', 5125, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (662, '외부문서&강의', 5125, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (81570, '취업&면접', 5125, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (1377, '시험', 5125, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (5, '서비스', NULL, NULL);
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (106402, '도서 신청', 5, 'library');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (27, '기자재 신청', 5, 'library');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (60024, '도서 대여', 5, 'library');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (84493, '기자재 대여', 5, 'library');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (6, '포인트', NULL, NULL);
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (30052, '랭킹', 6, 'attendance');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (33777, '출석부', 6, 'attendance');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (11302, '게임', 6, 'game');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (63908, '익명게시판', 2, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (10, '오류제보', NULL, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (11, '졸업생 게시판', NULL, 'board');
-INSERT INTO `keeper`.`category` (`id`, `name`, `parent_id`, `href`) VALUES (5424, '스터디 발표자료', 3, 'board');
+INSERT INTO `keeper`.`category` (`id`, `name`) VALUES (1, 'virtual_category');
+INSERT INTO `keeper`.`category` (`id`, `name`) VALUES (101, '공지사항');
+INSERT INTO `keeper`.`category` (`id`, `name`) VALUES (102, '건의사항');
+INSERT INTO `keeper`.`category` (`id`, `name`) VALUES (103, '정보게시판');
+INSERT INTO `keeper`.`category` (`id`, `name`) VALUES (104, '자유게시판');
+INSERT INTO `keeper`.`category` (`id`, `name`) VALUES (105, '익명게시판');
+INSERT INTO `keeper`.`category` (`id`, `name`) VALUES (106, '졸업생게시판');
+INSERT INTO `keeper`.`category` (`id`, `name`) VALUES (107, '시험게시판');
 
 COMMIT;
 
@@ -1709,6 +1673,7 @@ INSERT INTO `keeper`.`member_job` (`id`, `name`, `badge_thumbnail_id`) VALUES (8
 INSERT INTO `keeper`.`member_job` (`id`, `name`, `badge_thumbnail_id`) VALUES (9, 'ROLE_사서', 18);
 INSERT INTO `keeper`.`member_job` (`id`, `name`, `badge_thumbnail_id`) VALUES (10, 'ROLE_회원', NULL);
 INSERT INTO `keeper`.`member_job` (`id`, `name`, `badge_thumbnail_id`) VALUES (11, 'ROLE_출제자', NULL);
+INSERT INTO `keeper`.`member_job` (`id`, `name`, `badge_thumbnail_id`) VALUES (12, 'ROLE_INFRA_전산관리자', 15);
 
 COMMIT;
 
