@@ -4,11 +4,13 @@
 
 ## Recent Patch note
 
-### keeper_db 1.20.0-renew8.1
+### keeper_db 1.20.0-renew8.2
 
-20230716 DB 업데이트
-- study
-  - note_link 컬럼명을 notion_link로 변경했습니다. (기획 상 노션 링크만 받게되어 그렇습니다.)
-- member_job
-  - ROLE_전산관리자 직책을 ROLE_FRONT_전산관리자 , ROLE_BACK_전산관리자 직책으로 나눴습니다. 이제 두 직책을 구별할 수 있습니다.
-
+20230724 DB 업데이트
+- `member_job`
+  - ROLE_INFRA_전산관리자 직책이 추가되었습니다.
+- `game_member_info`
+  - UNIQUE key 설정을 (`member_id`, `play_date`) 쌍으로 변경했습니다.
+- `category`
+  - 사용하지 않는 컬럼인 `parent_id`와 `href`를 지웠습니다.
+  - 사용하지 않는 데이터들을 정리하고, 프론트와 맞춰서 사용하게 될 카테고리 데이터를 추가했습니다.
