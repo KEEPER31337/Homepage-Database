@@ -4,13 +4,10 @@
 
 ## Recent Patch note
 
-### keeper_db 1.20.0-renew8.2
+### keeper_db 1.20.0-renew8.4
 
-20230724 DB 업데이트
-- `member_job`
-  - ROLE_INFRA_전산관리자 직책이 추가되었습니다.
-- `game_member_info`
-  - UNIQUE key 설정을 (`member_id`, `play_date`) 쌍으로 변경했습니다.
-- `category`
-  - 사용하지 않는 컬럼인 `parent_id`와 `href`를 지웠습니다.
-  - 사용하지 않는 데이터들을 정리하고, 프론트와 맞춰서 사용하게 될 카테고리 데이터를 추가했습니다.
+20230807 DB 업데이트
+- `member_read_posting`
+  - 회원이 열람한 게시글을 저장하기 위한 중간 테이블이 생성되었습니다.
+- `ctf_challenge_has_ctf_challenge_category`
+  - 고유의 `id`값을 PK로 가지고, `ctf_challenge_id`와 `ctf_challenge_category_id`는 FK로 갖게 변경되었습니다.
