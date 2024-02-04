@@ -1,6 +1,8 @@
 # Homepage-Database
 
-키퍼 홈페이지 데이터베이스
+키퍼 홈페이지 데이터베이스 SQL 코드 저장소입니다.
+
+최신 sql문은 [recent_init.sql](./recent_init.sql) 입니다.
 
 ## Recent Patch note
 
