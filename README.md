@@ -4,10 +4,7 @@
 
 ## Recent Patch note
 
-### keeper_db 1.20.0-renew8.4
+### keeper_db 1.20.0-renew8.5
 
-20230807 DB 업데이트
-- `member_read_posting`
-  - 회원이 열람한 게시글을 저장하기 위한 중간 테이블이 생성되었습니다.
-- `ctf_challenge_has_ctf_challenge_category`
-  - 고유의 `id`값을 PK로 가지고, `ctf_challenge_id`와 `ctf_challenge_category_id`는 FK로 갖게 변경되었습니다.
+20231009 DB 업데이트
+- 리뉴얼 홈페이지를 배포하기 위해 필요한 코드가 추가되었습니다.

@@ -23,14 +23,14 @@ USE `keeper` ;
 DROP TABLE IF EXISTS `keeper`.`file` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`file` (
-                                               `id` INT NOT NULL AUTO_INCREMENT,
-                                               `file_name` VARCHAR(256) NOT NULL,
-    `file_path` VARCHAR(512) NOT NULL,
-    `file_size` BIGINT NOT NULL,
-    `upload_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `ip_address` VARCHAR(128) NOT NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `file_name` VARCHAR(256) NOT NULL,
+  `file_path` VARCHAR(512) NOT NULL,
+  `file_size` BIGINT NOT NULL,
+  `upload_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `ip_address` VARCHAR(128) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -39,17 +39,17 @@ CREATE TABLE IF NOT EXISTS `keeper`.`file` (
 DROP TABLE IF EXISTS `keeper`.`thumbnail` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`thumbnail` (
-                                                    `id` INT NOT NULL AUTO_INCREMENT,
-                                                    `path` VARCHAR(512) NULL,
-    `file_id` INT NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_thumbnail_file1_idx` (`file_id` ASC) VISIBLE,
-    CONSTRAINT `fk_thumbnail_file1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `path` VARCHAR(512) NULL,
+  `file_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_thumbnail_file1_idx` (`file_id` ASC) VISIBLE,
+  CONSTRAINT `fk_thumbnail_file1`
     FOREIGN KEY (`file_id`)
     REFERENCES `keeper`.`file` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -58,10 +58,10 @@ CREATE TABLE IF NOT EXISTS `keeper`.`thumbnail` (
 DROP TABLE IF EXISTS `keeper`.`book_department` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`book_department` (
-                                                          `id` INT NOT NULL AUTO_INCREMENT,
-                                                          `name` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -70,23 +70,23 @@ CREATE TABLE IF NOT EXISTS `keeper`.`book_department` (
 DROP TABLE IF EXISTS `keeper`.`book` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`book` (
-                                               `id` INT NOT NULL AUTO_INCREMENT,
-                                               `title` VARCHAR(250) NOT NULL,
-    `author` VARCHAR(40) NOT NULL,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `book_department_id` INT NOT NULL DEFAULT 6,
-    `total_quantity` INT NOT NULL DEFAULT 1,
-    `thumbnail_id` INT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_book_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
-    INDEX `fk_book_book_department1_idx` (`book_department_id` ASC) VISIBLE,
-    CONSTRAINT `fk_book_thumbnail1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(250) NOT NULL,
+  `author` VARCHAR(40) NOT NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `book_department_id` INT NOT NULL DEFAULT 6,
+  `total_quantity` INT NOT NULL DEFAULT 1,
+  `thumbnail_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_book_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
+  INDEX `fk_book_book_department1_idx` (`book_department_id` ASC) VISIBLE,
+  CONSTRAINT `fk_book_thumbnail1`
     FOREIGN KEY (`thumbnail_id`)
     REFERENCES `keeper`.`thumbnail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_book_book_department1`
+  CONSTRAINT `fk_book_book_department1`
     FOREIGN KEY (`book_department_id`)
     REFERENCES `keeper`.`book_department` (`id`)
     ON DELETE NO ACTION
@@ -99,18 +99,18 @@ CREATE TABLE IF NOT EXISTS `keeper`.`book` (
 DROP TABLE IF EXISTS `keeper`.`equipment` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`equipment` (
-                                                    `id` INT NOT NULL AUTO_INCREMENT,
-                                                    `name` VARCHAR(250) NOT NULL,
-    `information` TEXT NULL,
-    `total` INT NOT NULL DEFAULT 1,
-    `borrow` INT NOT NULL DEFAULT 0,
-    `enable` INT NOT NULL DEFAULT 1,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `thumbnail_id` INT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_equipment_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
-    CONSTRAINT `fk_equipment_thumbnail1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(250) NOT NULL,
+  `information` TEXT NULL,
+  `total` INT NOT NULL DEFAULT 1,
+  `borrow` INT NOT NULL DEFAULT 0,
+  `enable` INT NOT NULL DEFAULT 1,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `thumbnail_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_equipment_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
+  CONSTRAINT `fk_equipment_thumbnail1`
     FOREIGN KEY (`thumbnail_id`)
     REFERENCES `keeper`.`thumbnail` (`id`)
     ON DELETE NO ACTION
@@ -123,17 +123,17 @@ CREATE TABLE IF NOT EXISTS `keeper`.`equipment` (
 DROP TABLE IF EXISTS `keeper`.`member_type` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member_type` (
-                                                      `id` INT NOT NULL AUTO_INCREMENT,
-                                                      `name` VARCHAR(45) NULL,
-    `badge_thumbnail_id` INT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_member_type_thumbnail1_idx` (`badge_thumbnail_id` ASC) VISIBLE,
-    CONSTRAINT `fk_member_type_thumbnail1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `badge_thumbnail_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_member_type_thumbnail1_idx` (`badge_thumbnail_id` ASC) VISIBLE,
+  CONSTRAINT `fk_member_type_thumbnail1`
     FOREIGN KEY (`badge_thumbnail_id`)
     REFERENCES `keeper`.`thumbnail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -142,17 +142,17 @@ CREATE TABLE IF NOT EXISTS `keeper`.`member_type` (
 DROP TABLE IF EXISTS `keeper`.`member_rank` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member_rank` (
-                                                      `id` INT NOT NULL AUTO_INCREMENT,
-                                                      `name` VARCHAR(45) NULL,
-    `badge_thumbnail_id` INT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_member_rank_thumbnail1_idx` (`badge_thumbnail_id` ASC) VISIBLE,
-    CONSTRAINT `fk_member_rank_thumbnail1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `badge_thumbnail_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_member_rank_thumbnail1_idx` (`badge_thumbnail_id` ASC) VISIBLE,
+  CONSTRAINT `fk_member_rank_thumbnail1`
     FOREIGN KEY (`badge_thumbnail_id`)
     REFERENCES `keeper`.`thumbnail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -161,45 +161,45 @@ CREATE TABLE IF NOT EXISTS `keeper`.`member_rank` (
 DROP TABLE IF EXISTS `keeper`.`member` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member` (
-                                                 `id` INT NOT NULL AUTO_INCREMENT,
-                                                 `login_id` VARCHAR(80) NOT NULL,
-    `email_address` VARCHAR(250) NOT NULL,
-    `password` VARCHAR(512) NOT NULL,
-    `real_name` VARCHAR(40) NOT NULL,
-    `birthday` DATE NULL,
-    `student_id` VARCHAR(45) NULL,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `member_type_id` INT NULL DEFAULT 1,
-    `member_rank_id` INT NULL DEFAULT 1,
-    `point` INT NOT NULL DEFAULT 0,
-    `level` INT NOT NULL DEFAULT 0,
-    `thumbnail_id` INT NULL,
-    `generation` FLOAT NULL,
-    `total_attendance` INT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `login_id_UNIQUE` (`login_id` ASC) VISIBLE,
-    UNIQUE INDEX `email_address_UNIQUE` (`email_address` ASC) VISIBLE,
-    UNIQUE INDEX `student_id_UNIQUE` (`student_id` ASC) VISIBLE,
-    INDEX `fk_member_member_type1_idx` (`member_type_id` ASC) VISIBLE,
-    INDEX `fk_member_member_rank1_idx` (`member_rank_id` ASC) VISIBLE,
-    INDEX `fk_member_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
-    CONSTRAINT `fk_member_member_type1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `login_id` VARCHAR(80) NOT NULL,
+  `email_address` VARCHAR(250) NOT NULL,
+  `password` VARCHAR(512) NOT NULL,
+  `real_name` VARCHAR(40) NOT NULL,
+  `birthday` DATE NULL,
+  `student_id` VARCHAR(45) NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `member_type_id` INT NULL DEFAULT 1,
+  `member_rank_id` INT NULL DEFAULT 1,
+  `point` INT NOT NULL DEFAULT 0,
+  `level` INT NOT NULL DEFAULT 0,
+  `thumbnail_id` INT NULL,
+  `generation` FLOAT NULL,
+  `total_attendance` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `login_id_UNIQUE` (`login_id` ASC) VISIBLE,
+  UNIQUE INDEX `email_address_UNIQUE` (`email_address` ASC) VISIBLE,
+  UNIQUE INDEX `student_id_UNIQUE` (`student_id` ASC) VISIBLE,
+  INDEX `fk_member_member_type1_idx` (`member_type_id` ASC) VISIBLE,
+  INDEX `fk_member_member_rank1_idx` (`member_rank_id` ASC) VISIBLE,
+  INDEX `fk_member_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
+  CONSTRAINT `fk_member_member_type1`
     FOREIGN KEY (`member_type_id`)
     REFERENCES `keeper`.`member_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_member_member_rank1`
+  CONSTRAINT `fk_member_member_rank1`
     FOREIGN KEY (`member_rank_id`)
     REFERENCES `keeper`.`member_rank` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_member_thumbnail1`
+  CONSTRAINT `fk_member_thumbnail1`
     FOREIGN KEY (`thumbnail_id`)
     REFERENCES `keeper`.`thumbnail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -208,10 +208,10 @@ CREATE TABLE IF NOT EXISTS `keeper`.`member` (
 DROP TABLE IF EXISTS `keeper`.`book_borrow_status` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`book_borrow_status` (
-                                                             `id` INT NOT NULL AUTO_INCREMENT,
-                                                             `status` VARCHAR(20) NOT NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `status` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -220,30 +220,30 @@ CREATE TABLE IF NOT EXISTS `keeper`.`book_borrow_status` (
 DROP TABLE IF EXISTS `keeper`.`book_borrow_info` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`book_borrow_info` (
-                                                           `id` INT UNIQUE NOT NULL AUTO_INCREMENT,
-                                                           `member_id` INT NOT NULL,
-                                                           `book_id` INT NOT NULL,
-                                                           `status_id` INT NOT NULL,
-                                                           `borrow_date` DATE NULL,
-                                                           `expire_date` DATE NULL,
-                                                           `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `last_request_date` DATE NULL DEFAULT (CURRENT_DATE),
-    PRIMARY KEY (`id`),
-    INDEX `fk_book_borrow_info_book1_idx` (`book_id` ASC) VISIBLE,
-    INDEX `fk_book_borrow_info_member1_idx` (`member_id` ASC) VISIBLE,
-    INDEX `fk_book_borrow_info_book_borrow_status1_idx` (`status_id` ASC) VISIBLE,
-    CONSTRAINT `fk_book_borrow_info_book1`
+  `id` INT UNIQUE NOT NULL AUTO_INCREMENT,
+  `member_id` INT NOT NULL,
+  `book_id` INT NOT NULL,
+  `status_id` INT NOT NULL,
+  `borrow_date` DATE NULL,
+  `expire_date` DATE NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `last_request_date` DATE NULL DEFAULT (CURRENT_DATE),
+  PRIMARY KEY (`id`),
+  INDEX `fk_book_borrow_info_book1_idx` (`book_id` ASC) VISIBLE,
+  INDEX `fk_book_borrow_info_member1_idx` (`member_id` ASC) VISIBLE,
+  INDEX `fk_book_borrow_info_book_borrow_status1_idx` (`status_id` ASC) VISIBLE,
+  CONSTRAINT `fk_book_borrow_info_book1`
     FOREIGN KEY (`book_id`)
     REFERENCES `keeper`.`book` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_book_borrow_info_member1`
+  CONSTRAINT `fk_book_borrow_info_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_book_borrow_info_book_borrow_status1`
+  CONSTRAINT `fk_book_borrow_info_book_borrow_status1`
     FOREIGN KEY (`status_id`)
     REFERENCES `keeper`.`book_borrow_status` (`id`)
     ON DELETE NO ACTION
@@ -256,21 +256,21 @@ CREATE TABLE IF NOT EXISTS `keeper`.`book_borrow_info` (
 DROP TABLE IF EXISTS `keeper`.`equipment_borrow_info` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`equipment_borrow_info` (
-                                                                `id` INT UNIQUE NOT NULL AUTO_INCREMENT,
-                                                                `quantity` INT NOT NULL,
-                                                                `borrow_date` DATE NOT NULL DEFAULT (CURRENT_DATE),
-    `expire_date` DATE NOT NULL DEFAULT (CURRENT_DATE),
-    `member_id` INT NOT NULL,
-    `equipment_id` INT NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_equipment_borrow_info_equipment1_idx` (`equipment_id` ASC) VISIBLE,
-    INDEX `fk_equipment_borrow_info_member1_idx` (`member_id` ASC) VISIBLE,
-    CONSTRAINT `fk_equipment_borrow_info_equipment1`
+  `id` INT UNIQUE NOT NULL AUTO_INCREMENT,
+  `quantity` INT NOT NULL,
+  `borrow_date` DATE NOT NULL DEFAULT (CURRENT_DATE),
+  `expire_date` DATE NOT NULL DEFAULT (CURRENT_DATE),
+  `member_id` INT NOT NULL,
+  `equipment_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_equipment_borrow_info_equipment1_idx` (`equipment_id` ASC) VISIBLE,
+  INDEX `fk_equipment_borrow_info_member1_idx` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `fk_equipment_borrow_info_equipment1`
     FOREIGN KEY (`equipment_id`)
     REFERENCES `keeper`.`equipment` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_equipment_borrow_info_member1`
+  CONSTRAINT `fk_equipment_borrow_info_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
@@ -283,10 +283,10 @@ CREATE TABLE IF NOT EXISTS `keeper`.`equipment_borrow_info` (
 DROP TABLE IF EXISTS `keeper`.`category` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`category` (
-                                                   `id` INT NOT NULL AUTO_INCREMENT,
-                                                   `name` VARCHAR(250) NOT NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(250) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -295,41 +295,41 @@ CREATE TABLE IF NOT EXISTS `keeper`.`category` (
 DROP TABLE IF EXISTS `keeper`.`posting` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`posting` (
-                                                  `id` INT NOT NULL AUTO_INCREMENT,
-                                                  `title` VARCHAR(250) NOT NULL,
-    `content` TEXT NOT NULL,
-    `member_id` INT NOT NULL,
-    `visit_count` INT NOT NULL DEFAULT 0,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `ip_address` VARCHAR(128) NOT NULL,
-    `allow_comment` TINYINT NOT NULL DEFAULT 1,
-    `is_notice` TINYINT NOT NULL DEFAULT 0,
-    `is_secret` TINYINT NOT NULL DEFAULT 0,
-    `is_temp` TINYINT NOT NULL DEFAULT 0,
-    `password` VARCHAR(512) NULL,
-    `category_id` INT NOT NULL,
-    `thumbnail_id` INT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_posting_member1_idx` (`member_id` ASC) VISIBLE,
-    INDEX `fk_posting_category1_idx` (`category_id` ASC) VISIBLE,
-    INDEX `fk_posting_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
-    CONSTRAINT `fk_posting_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(250) NOT NULL,
+  `content` TEXT NOT NULL,
+  `member_id` INT NOT NULL,
+  `visit_count` INT NOT NULL DEFAULT 0,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `ip_address` VARCHAR(128) NOT NULL,
+  `allow_comment` TINYINT NOT NULL DEFAULT 1,
+  `is_notice` TINYINT NOT NULL DEFAULT 0,
+  `is_secret` TINYINT NOT NULL DEFAULT 0,
+  `is_temp` TINYINT NOT NULL DEFAULT 0,
+  `password` VARCHAR(512) NULL,
+  `category_id` INT NOT NULL,
+  `thumbnail_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_posting_member1_idx` (`member_id` ASC) VISIBLE,
+  INDEX `fk_posting_category1_idx` (`category_id` ASC) VISIBLE,
+  INDEX `fk_posting_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
+  CONSTRAINT `fk_posting_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_posting_category1`
+  CONSTRAINT `fk_posting_category1`
     FOREIGN KEY (`category_id`)
     REFERENCES `keeper`.`category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_posting_thumbnail1`
+  CONSTRAINT `fk_posting_thumbnail1`
     FOREIGN KEY (`thumbnail_id`)
     REFERENCES `keeper`.`thumbnail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -338,35 +338,35 @@ CREATE TABLE IF NOT EXISTS `keeper`.`posting` (
 DROP TABLE IF EXISTS `keeper`.`comment` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`comment` (
-                                                  `id` INT NOT NULL AUTO_INCREMENT,
-                                                  `content` TEXT NOT NULL,
-                                                  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `ip_address` VARCHAR(128) NOT NULL,
-    `member_id` INT NOT NULL,
-    `posting_id` INT NOT NULL,
-    `parent_id` INT NULL,
-    `is_deleted` TINYINT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    INDEX `fk_comment_member1_idx` (`member_id` ASC) VISIBLE,
-    INDEX `fk_comment_posting1_idx` (`posting_id` ASC) VISIBLE,
-    INDEX `fk_comment_comment1_idx` (`parent_id` ASC) VISIBLE,
-    CONSTRAINT `fk_comment_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` TEXT NOT NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `ip_address` VARCHAR(128) NOT NULL,
+  `member_id` INT NOT NULL,
+  `posting_id` INT NOT NULL,
+  `parent_id` INT NULL,
+  `is_deleted` TINYINT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `fk_comment_member1_idx` (`member_id` ASC) VISIBLE,
+  INDEX `fk_comment_posting1_idx` (`posting_id` ASC) VISIBLE,
+  INDEX `fk_comment_comment1_idx` (`parent_id` ASC) VISIBLE,
+  CONSTRAINT `fk_comment_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_comment_posting1`
+  CONSTRAINT `fk_comment_posting1`
     FOREIGN KEY (`posting_id`)
     REFERENCES `keeper`.`posting` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_comment_comment1`
+  CONSTRAINT `fk_comment_comment1`
     FOREIGN KEY (`parent_id`)
     REFERENCES `keeper`.`comment` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -375,10 +375,10 @@ CREATE TABLE IF NOT EXISTS `keeper`.`comment` (
 DROP TABLE IF EXISTS `keeper`.`member_job` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member_job` (
-                                                     `id` INT NOT NULL AUTO_INCREMENT,
-                                                     `name` VARCHAR(45) NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -387,23 +387,23 @@ CREATE TABLE IF NOT EXISTS `keeper`.`member_job` (
 DROP TABLE IF EXISTS `keeper`.`member_has_member_job` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member_has_member_job` (
-                                                                `id` INT NOT NULL AUTO_INCREMENT,
-                                                                `member_id` INT NOT NULL,
-                                                                `member_job_id` INT NOT NULL,
-                                                                INDEX `fk_member_has_member_job_member_job1_idx` (`member_job_id` ASC) VISIBLE,
-    INDEX `fk_member_has_member_job_member1_idx` (`member_id` ASC) VISIBLE,
-    PRIMARY KEY (`id`),
-    CONSTRAINT `fk_member_has_member_job_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `member_id` INT NOT NULL,
+  `member_job_id` INT NOT NULL,
+  INDEX `fk_member_has_member_job_member_job1_idx` (`member_job_id` ASC) VISIBLE,
+  INDEX `fk_member_has_member_job_member1_idx` (`member_id` ASC) VISIBLE,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_member_has_member_job_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_member_has_member_job_member_job1`
+  CONSTRAINT `fk_member_has_member_job_member_job1`
     FOREIGN KEY (`member_job_id`)
     REFERENCES `keeper`.`member_job` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -412,22 +412,22 @@ CREATE TABLE IF NOT EXISTS `keeper`.`member_has_member_job` (
 DROP TABLE IF EXISTS `keeper`.`member_has_posting_like` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member_has_posting_like` (
-                                                                  `member_id` INT NOT NULL,
-                                                                  `posting_id` INT NOT NULL,
-                                                                  PRIMARY KEY (`member_id`, `posting_id`),
-    INDEX `fk_member_has_posting_posting1_idx` (`posting_id` ASC) VISIBLE,
-    INDEX `fk_member_has_posting_member1_idx` (`member_id` ASC) VISIBLE,
-    CONSTRAINT `fk_member_has_posting_member1`
+  `member_id` INT NOT NULL,
+  `posting_id` INT NOT NULL,
+  PRIMARY KEY (`member_id`, `posting_id`),
+  INDEX `fk_member_has_posting_posting1_idx` (`posting_id` ASC) VISIBLE,
+  INDEX `fk_member_has_posting_member1_idx` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `fk_member_has_posting_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_member_has_posting_posting1`
+  CONSTRAINT `fk_member_has_posting_posting1`
     FOREIGN KEY (`posting_id`)
     REFERENCES `keeper`.`posting` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -436,22 +436,22 @@ CREATE TABLE IF NOT EXISTS `keeper`.`member_has_posting_like` (
 DROP TABLE IF EXISTS `keeper`.`member_has_posting_dislike` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member_has_posting_dislike` (
-                                                                     `member_id` INT NOT NULL,
-                                                                     `posting_id` INT NOT NULL,
-                                                                     PRIMARY KEY (`member_id`, `posting_id`),
-    INDEX `fk_member_has_posting1_posting1_idx` (`posting_id` ASC) VISIBLE,
-    INDEX `fk_member_has_posting1_member1_idx` (`member_id` ASC) VISIBLE,
-    CONSTRAINT `fk_member_has_posting1_member1`
+  `member_id` INT NOT NULL,
+  `posting_id` INT NOT NULL,
+  PRIMARY KEY (`member_id`, `posting_id`),
+  INDEX `fk_member_has_posting1_posting1_idx` (`posting_id` ASC) VISIBLE,
+  INDEX `fk_member_has_posting1_member1_idx` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `fk_member_has_posting1_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_member_has_posting1_posting1`
+  CONSTRAINT `fk_member_has_posting1_posting1`
     FOREIGN KEY (`posting_id`)
     REFERENCES `keeper`.`posting` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -460,22 +460,22 @@ CREATE TABLE IF NOT EXISTS `keeper`.`member_has_posting_dislike` (
 DROP TABLE IF EXISTS `keeper`.`member_has_comment_like` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member_has_comment_like` (
-                                                                  `member_id` INT NOT NULL,
-                                                                  `comment_id` INT NOT NULL,
-                                                                  PRIMARY KEY (`member_id`, `comment_id`),
-    INDEX `fk_member_has_comment_comment1_idx` (`comment_id` ASC) VISIBLE,
-    INDEX `fk_member_has_comment_member1_idx` (`member_id` ASC) VISIBLE,
-    CONSTRAINT `fk_member_has_comment_member1`
+  `member_id` INT NOT NULL,
+  `comment_id` INT NOT NULL,
+  PRIMARY KEY (`member_id`, `comment_id`),
+  INDEX `fk_member_has_comment_comment1_idx` (`comment_id` ASC) VISIBLE,
+  INDEX `fk_member_has_comment_member1_idx` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `fk_member_has_comment_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_member_has_comment_comment1`
+  CONSTRAINT `fk_member_has_comment_comment1`
     FOREIGN KEY (`comment_id`)
     REFERENCES `keeper`.`comment` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -484,22 +484,22 @@ CREATE TABLE IF NOT EXISTS `keeper`.`member_has_comment_like` (
 DROP TABLE IF EXISTS `keeper`.`member_has_comment_dislike` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member_has_comment_dislike` (
-                                                                     `member_id` INT NOT NULL,
-                                                                     `comment_id` INT NOT NULL,
-                                                                     PRIMARY KEY (`member_id`, `comment_id`),
-    INDEX `fk_member_has_comment1_comment1_idx` (`comment_id` ASC) VISIBLE,
-    INDEX `fk_member_has_comment1_member1_idx` (`member_id` ASC) VISIBLE,
-    CONSTRAINT `fk_member_has_comment1_member1`
+  `member_id` INT NOT NULL,
+  `comment_id` INT NOT NULL,
+  PRIMARY KEY (`member_id`, `comment_id`),
+  INDEX `fk_member_has_comment1_comment1_idx` (`comment_id` ASC) VISIBLE,
+  INDEX `fk_member_has_comment1_member1_idx` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `fk_member_has_comment1_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_member_has_comment1_comment1`
+  CONSTRAINT `fk_member_has_comment1_comment1`
     FOREIGN KEY (`comment_id`)
     REFERENCES `keeper`.`comment` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -508,11 +508,11 @@ CREATE TABLE IF NOT EXISTS `keeper`.`member_has_comment_dislike` (
 DROP TABLE IF EXISTS `keeper`.`static_write_title` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`static_write_title` (
-                                                             `id` INT NOT NULL AUTO_INCREMENT,
-                                                             `title` VARCHAR(50) NULL,
-    `type` VARCHAR(40) NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(50) NULL,
+  `type` VARCHAR(40) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -521,25 +521,25 @@ CREATE TABLE IF NOT EXISTS `keeper`.`static_write_title` (
 DROP TABLE IF EXISTS `keeper`.`static_write_subtitle_image` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`static_write_subtitle_image` (
-                                                                      `id` INT NOT NULL AUTO_INCREMENT,
-                                                                      `subtitle` VARCHAR(250) NULL,
-    `static_write_title_id` INT NOT NULL,
-    `thumbnail_id` INT NULL,
-    `display_order` INT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    INDEX `fk_static_write_subtitle_image_static_write_title1_idx` (`static_write_title_id` ASC) VISIBLE,
-    INDEX `fk_static_write_subtitle_image_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
-    CONSTRAINT `fk_static_write_subtitle_image_static_write_title1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `subtitle` VARCHAR(250) NULL,
+  `static_write_title_id` INT NOT NULL,
+  `thumbnail_id` INT NULL,
+  `display_order` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `fk_static_write_subtitle_image_static_write_title1_idx` (`static_write_title_id` ASC) VISIBLE,
+  INDEX `fk_static_write_subtitle_image_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
+  CONSTRAINT `fk_static_write_subtitle_image_static_write_title1`
     FOREIGN KEY (`static_write_title_id`)
     REFERENCES `keeper`.`static_write_title` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_static_write_subtitle_image_thumbnail1`
+  CONSTRAINT `fk_static_write_subtitle_image_thumbnail1`
     FOREIGN KEY (`thumbnail_id`)
     REFERENCES `keeper`.`thumbnail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -548,18 +548,18 @@ CREATE TABLE IF NOT EXISTS `keeper`.`static_write_subtitle_image` (
 DROP TABLE IF EXISTS `keeper`.`static_write_content` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`static_write_content` (
-                                                               `id` INT NOT NULL AUTO_INCREMENT,
-                                                               `content` TEXT NULL,
-                                                               `static_write_subtitle_image_id` INT NOT NULL,
-                                                               `display_order` INT NOT NULL DEFAULT 0,
-                                                               PRIMARY KEY (`id`),
-    INDEX `fk_static_write_content_static_write_subtitle_image1_idx` (`static_write_subtitle_image_id` ASC) VISIBLE,
-    CONSTRAINT `fk_static_write_content_static_write_subtitle_image1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` TEXT NULL,
+  `static_write_subtitle_image_id` INT NOT NULL,
+  `display_order` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `fk_static_write_content_static_write_subtitle_image1_idx` (`static_write_subtitle_image_id` ASC) VISIBLE,
+  CONSTRAINT `fk_static_write_content_static_write_subtitle_image1`
     FOREIGN KEY (`static_write_subtitle_image_id`)
     REFERENCES `keeper`.`static_write_subtitle_image` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -568,27 +568,27 @@ CREATE TABLE IF NOT EXISTS `keeper`.`static_write_content` (
 DROP TABLE IF EXISTS `keeper`.`attendance` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`attendance` (
-                                                     `id` INT NOT NULL AUTO_INCREMENT,
-                                                     `time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `date` DATE NOT NULL DEFAULT (CURRENT_DATE),
-    `point` INT NOT NULL DEFAULT 100,
-    `random_point` INT NOT NULL DEFAULT 0,
-    `rank_point` INT NOT NULL DEFAULT 0,
-    `continuous_point` INT NOT NULL DEFAULT 0,
-    `ip_address` VARCHAR(128) NOT NULL,
-    `greetings` VARCHAR(250) NULL,
-    `continuous_day` INT NOT NULL,
-    `member_id` INT NOT NULL,
-    `rank` INT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_attendance_member1_idx` (`member_id` ASC) VISIBLE,
-    UNIQUE INDEX `is_duplicated` (`member_id` ASC, `date` ASC) VISIBLE,
-    CONSTRAINT `fk_attendance_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `date` DATE NOT NULL DEFAULT (CURRENT_DATE),
+  `point` INT NOT NULL DEFAULT 100,
+  `random_point` INT NOT NULL DEFAULT 0,
+  `rank_point` INT NOT NULL DEFAULT 0,
+  `continuous_point` INT NOT NULL DEFAULT 0,
+  `ip_address` VARCHAR(128) NOT NULL,
+  `greetings` VARCHAR(250) NULL,
+  `continuous_day` INT NOT NULL,
+  `member_id` INT NOT NULL,
+  `rank` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_attendance_member1_idx` (`member_id` ASC) VISIBLE,
+  UNIQUE INDEX `is_duplicated` (`member_id` ASC, `date` ASC) VISIBLE,
+  CONSTRAINT `fk_attendance_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -597,12 +597,12 @@ CREATE TABLE IF NOT EXISTS `keeper`.`attendance` (
 DROP TABLE IF EXISTS `keeper`.`non_absence` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`non_absence` (
-                                                      `id` INT NOT NULL AUTO_INCREMENT,
-                                                      `term` VARCHAR(45) NOT NULL,
-    `day` INT NOT NULL,
-    `point` INT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `term` VARCHAR(45) NOT NULL,
+  `day` INT NOT NULL,
+  `point` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -611,24 +611,24 @@ CREATE TABLE IF NOT EXISTS `keeper`.`non_absence` (
 DROP TABLE IF EXISTS `keeper`.`friend` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`friend` (
-                                                 `id` INT NOT NULL AUTO_INCREMENT,
-                                                 `follower` INT NOT NULL,
-                                                 `followee` INT NOT NULL,
-                                                 `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    PRIMARY KEY (`id`),
-    INDEX `fk_friend_member1_idx` (`follower` ASC) VISIBLE,
-    INDEX `fk_friend_member2_idx` (`followee` ASC) VISIBLE,
-    CONSTRAINT `fk_friend_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `follower` INT NOT NULL,
+  `followee` INT NOT NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  PRIMARY KEY (`id`),
+  INDEX `fk_friend_member1_idx` (`follower` ASC) VISIBLE,
+  INDEX `fk_friend_member2_idx` (`followee` ASC) VISIBLE,
+  CONSTRAINT `fk_friend_member1`
     FOREIGN KEY (`follower`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_friend_member2`
+  CONSTRAINT `fk_friend_member2`
     FOREIGN KEY (`followee`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -637,27 +637,27 @@ CREATE TABLE IF NOT EXISTS `keeper`.`friend` (
 DROP TABLE IF EXISTS `keeper`.`point_log` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`point_log` (
-                                                    `id` INT NOT NULL AUTO_INCREMENT,
-                                                    `time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `member_id` INT NOT NULL,
-    `point` INT NOT NULL DEFAULT 0,
-    `detail` VARCHAR(45) NULL,
-    `presented` INT NULL,
-    `is_spent` TINYINT NOT NULL DEFAULT 1,
-    PRIMARY KEY (`id`),
-    INDEX `fk_point_log_member1_idx` (`presented` ASC) VISIBLE,
-    INDEX `fk_point_log_member2_idx` (`member_id` ASC) VISIBLE,
-    CONSTRAINT `fk_point_log_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `member_id` INT NOT NULL,
+  `point` INT NOT NULL DEFAULT 0,
+  `detail` VARCHAR(45) NULL,
+  `presented` INT NULL,
+  `is_spent` TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  INDEX `fk_point_log_member1_idx` (`presented` ASC) VISIBLE,
+  INDEX `fk_point_log_member2_idx` (`member_id` ASC) VISIBLE,
+  CONSTRAINT `fk_point_log_member1`
     FOREIGN KEY (`presented`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_point_log_member2`
+  CONSTRAINT `fk_point_log_member2`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -666,27 +666,27 @@ CREATE TABLE IF NOT EXISTS `keeper`.`point_log` (
 DROP TABLE IF EXISTS `keeper`.`game_member_info` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`game_member_info` (
-                                                           `id` INT NOT NULL AUTO_INCREMENT,
-                                                           `member_id` INT NOT NULL,
-                                                           `dice_per_day` INT NOT NULL DEFAULT 0,
-                                                           `roulette_per_day` INT NOT NULL DEFAULT 0,
-                                                           `lotto_per_day` INT NOT NULL DEFAULT 0,
-                                                           `baseball_per_day` INT NOT NULL DEFAULT 0,
-                                                           `last_play_time` DATETIME NULL DEFAULT (CURRENT_TIME),
-    `dice_day_point` INT NOT NULL DEFAULT 0,
-    `roulette_day_point` INT NOT NULL DEFAULT 0,
-    `lotto_day_point` INT NOT NULL DEFAULT 0,
-    `baseball_day_point` INT NOT NULL DEFAULT 0,
-    `play_date` DATE NOT NULL DEFAULT (CURRENT_DATE),
-    PRIMARY KEY (`id`),
-    INDEX `fk_game_member_info_member1_idx` (`member_id` ASC) VISIBLE,
-    UNIQUE INDEX `is_duplicated` (`member_id` ASC, `play_date` DESC) VISIBLE,
-    CONSTRAINT `fk_game_member_info_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `member_id` INT NOT NULL,
+  `dice_per_day` INT NOT NULL DEFAULT 0,
+  `roulette_per_day` INT NOT NULL DEFAULT 0,
+  `lotto_per_day` INT NOT NULL DEFAULT 0,
+  `baseball_per_day` INT NOT NULL DEFAULT 0,
+  `last_play_time` DATETIME NULL DEFAULT (CURRENT_TIME),
+  `dice_day_point` INT NOT NULL DEFAULT 0,
+  `roulette_day_point` INT NOT NULL DEFAULT 0,
+  `lotto_day_point` INT NOT NULL DEFAULT 0,
+  `baseball_day_point` INT NOT NULL DEFAULT 0,
+  `play_date` DATE NOT NULL DEFAULT (CURRENT_DATE),
+  PRIMARY KEY (`id`),
+  INDEX `fk_game_member_info_member1_idx` (`member_id` ASC) VISIBLE,
+  UNIQUE INDEX `is_duplicated` (`member_id` ASC, `play_date` DESC) VISIBLE,
+  CONSTRAINT `fk_game_member_info_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -695,33 +695,33 @@ CREATE TABLE IF NOT EXISTS `keeper`.`game_member_info` (
 DROP TABLE IF EXISTS `keeper`.`study` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`study` (
-                                                `id` INT NOT NULL AUTO_INCREMENT,
-                                                `title` VARCHAR(45) NOT NULL,
-    `information` VARCHAR(256) NOT NULL,
-    `head_member_id` INT NOT NULL,
-    `thumbnail_id` INT NOT NULL DEFAULT 1,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `year` INT NULL,
-    `season` INT NULL,
-    `git_link` VARCHAR(256) NULL,
-    `notion_link` VARCHAR(256) NULL,
-    `etc_link` VARCHAR(256) NULL,
-    `etc_title` VARCHAR(45) NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_study_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
-    INDEX `fk_study_member1_idx` (`head_member_id` ASC) VISIBLE,
-    CONSTRAINT `fk_study_thumbnail1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NOT NULL,
+  `information` VARCHAR(256) NOT NULL,
+  `head_member_id` INT NOT NULL,
+  `thumbnail_id` INT NOT NULL DEFAULT 1,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `year` INT NULL,
+  `season` INT NULL,
+  `git_link` VARCHAR(256) NULL,
+  `notion_link` VARCHAR(256) NULL,
+  `etc_link` VARCHAR(256) NULL,
+  `etc_title` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_study_thumbnail1_idx` (`thumbnail_id` ASC) VISIBLE,
+  INDEX `fk_study_member1_idx` (`head_member_id` ASC) VISIBLE,
+  CONSTRAINT `fk_study_thumbnail1`
     FOREIGN KEY (`thumbnail_id`)
     REFERENCES `keeper`.`thumbnail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_study_member1`
+  CONSTRAINT `fk_study_member1`
     FOREIGN KEY (`head_member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -730,23 +730,23 @@ CREATE TABLE IF NOT EXISTS `keeper`.`study` (
 DROP TABLE IF EXISTS `keeper`.`study_has_member` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`study_has_member` (
-                                                           `study_id` INT NOT NULL,
-                                                           `member_id` INT NOT NULL,
-                                                           `register_time` DATETIME(6) NOT NULL DEFAULT (CURRENT_TIME),
-    PRIMARY KEY (`study_id`, `member_id`),
-    INDEX `fk_study_has_member_member1_idx` (`member_id` ASC) VISIBLE,
-    INDEX `fk_study_has_member_study1_idx` (`study_id` ASC) VISIBLE,
-    CONSTRAINT `fk_study_has_member_study1`
+  `study_id` INT NOT NULL,
+  `member_id` INT NOT NULL,
+  `register_time` DATETIME(6) NOT NULL DEFAULT (CURRENT_TIME),
+  PRIMARY KEY (`study_id`, `member_id`),
+  INDEX `fk_study_has_member_member1_idx` (`member_id` ASC) VISIBLE,
+  INDEX `fk_study_has_member_study1_idx` (`study_id` ASC) VISIBLE,
+  CONSTRAINT `fk_study_has_member_study1`
     FOREIGN KEY (`study_id`)
     REFERENCES `keeper`.`study` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_study_has_member_member1`
+  CONSTRAINT `fk_study_has_member_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -755,21 +755,21 @@ CREATE TABLE IF NOT EXISTS `keeper`.`study_has_member` (
 DROP TABLE IF EXISTS `keeper`.`ctf_contest` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_contest` (
-                                                      `id` INT NOT NULL AUTO_INCREMENT,
-                                                      `name` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_CONTEST_NAME',
-    `description` VARCHAR(45) NULL,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `creator` INT NOT NULL DEFAULT 1,
-    `is_joinable` TINYINT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    INDEX `fk_ctf_contest_member1_idx` (`creator` ASC) VISIBLE,
-    CONSTRAINT `fk_ctf_contest_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_CONTEST_NAME',
+  `description` VARCHAR(45) NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `creator` INT NOT NULL DEFAULT 1,
+  `is_joinable` TINYINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `fk_ctf_contest_member1_idx` (`creator` ASC) VISIBLE,
+  CONSTRAINT `fk_ctf_contest_member1`
     FOREIGN KEY (`creator`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -778,30 +778,30 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_contest` (
 DROP TABLE IF EXISTS `keeper`.`ctf_team` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_team` (
-                                                   `id` INT NOT NULL AUTO_INCREMENT,
-                                                   `name` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_TEAM_NAME',
-    `description` VARCHAR(200) NULL,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `creator` INT NOT NULL DEFAULT 1,
-    `score` INT NOT NULL DEFAULT 0,
-    `contest_id` INT NOT NULL DEFAULT 1,
-    `last_solve_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    PRIMARY KEY (`id`),
-    INDEX `fk_ctf_team_member1_idx` (`creator` ASC) VISIBLE,
-    INDEX `fk_ctf_team_ctf_contest1_idx` (`contest_id` ASC) VISIBLE,
-    UNIQUE INDEX `is_duplicated` (`name` ASC, `contest_id` ASC) VISIBLE,
-    CONSTRAINT `fk_ctf_team_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_TEAM_NAME',
+  `description` VARCHAR(200) NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `creator` INT NOT NULL DEFAULT 1,
+  `score` INT NOT NULL DEFAULT 0,
+  `contest_id` INT NOT NULL DEFAULT 1,
+  `last_solve_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  PRIMARY KEY (`id`),
+  INDEX `fk_ctf_team_member1_idx` (`creator` ASC) VISIBLE,
+  INDEX `fk_ctf_team_ctf_contest1_idx` (`contest_id` ASC) VISIBLE,
+  UNIQUE INDEX `is_duplicated` (`name` ASC, `contest_id` ASC) VISIBLE,
+  CONSTRAINT `fk_ctf_team_member1`
     FOREIGN KEY (`creator`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_ctf_team_ctf_contest1`
+  CONSTRAINT `fk_ctf_team_ctf_contest1`
     FOREIGN KEY (`contest_id`)
     REFERENCES `keeper`.`ctf_contest` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -810,10 +810,10 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_team` (
 DROP TABLE IF EXISTS `keeper`.`ctf_challenge_type` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge_type` (
-                                                             `id` INT NOT NULL AUTO_INCREMENT,
-                                                             `name` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -822,37 +822,37 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge_type` (
 DROP TABLE IF EXISTS `keeper`.`ctf_challenge` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge` (
-                                                        `id` INT NOT NULL AUTO_INCREMENT,
-                                                        `name` VARCHAR(200) NOT NULL DEFAULT 'DEFAULT_CHALLENGE_NAME',
-    `description` TEXT NULL,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `creator` INT NOT NULL DEFAULT 1,
-    `is_solvable` TINYINT NOT NULL DEFAULT 0,
-    `type_id` INT NULL,
-    `score` INT NOT NULL DEFAULT 0,
-    `contest_id` INT NOT NULL DEFAULT 1,
-    `max_submit_count` INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (`id`),
-    INDEX `fk_ctf_challenge_ctf_challenge_type1_idx` (`type_id` ASC) VISIBLE,
-    INDEX `fk_ctf_challenge_ctf_contest1_idx` (`contest_id` ASC) VISIBLE,
-    INDEX `fk_ctf_challenge_member1_idx` (`creator` ASC) VISIBLE,
-    CONSTRAINT `fk_ctf_challenge_ctf_challenge_type1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(200) NOT NULL DEFAULT 'DEFAULT_CHALLENGE_NAME',
+  `description` TEXT NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `creator` INT NOT NULL DEFAULT 1,
+  `is_solvable` TINYINT NOT NULL DEFAULT 0,
+  `type_id` INT NULL,
+  `score` INT NOT NULL DEFAULT 0,
+  `contest_id` INT NOT NULL DEFAULT 1,
+  `max_submit_count` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  INDEX `fk_ctf_challenge_ctf_challenge_type1_idx` (`type_id` ASC) VISIBLE,
+  INDEX `fk_ctf_challenge_ctf_contest1_idx` (`contest_id` ASC) VISIBLE,
+  INDEX `fk_ctf_challenge_member1_idx` (`creator` ASC) VISIBLE,
+  CONSTRAINT `fk_ctf_challenge_ctf_challenge_type1`
     FOREIGN KEY (`type_id`)
     REFERENCES `keeper`.`ctf_challenge_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_ctf_challenge_member1`
+  CONSTRAINT `fk_ctf_challenge_member1`
     FOREIGN KEY (`creator`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_ctf_challenge_ctf_contest1`
+  CONSTRAINT `fk_ctf_challenge_ctf_contest1`
     FOREIGN KEY (`contest_id`)
     REFERENCES `keeper`.`ctf_contest` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -861,10 +861,10 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge` (
 DROP TABLE IF EXISTS `keeper`.`ctf_challenge_category` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge_category` (
-                                                                 `id` INT NOT NULL AUTO_INCREMENT,
-                                                                 `name` VARCHAR(45) NOT NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -873,22 +873,22 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge_category` (
 DROP TABLE IF EXISTS `keeper`.`ctf_team_has_member` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_team_has_member` (
-                                                              `ctf_team_id` INT NOT NULL,
-                                                              `member_id` INT NOT NULL,
-                                                              PRIMARY KEY (`ctf_team_id`, `member_id`),
-    INDEX `fk_ctf_team_has_member_member1_idx` (`member_id` ASC) VISIBLE,
-    INDEX `fk_ctf_team_has_member_ctf_team1_idx` (`ctf_team_id` ASC) VISIBLE,
-    CONSTRAINT `fk_ctf_team_has_member_ctf_team1`
+  `ctf_team_id` INT NOT NULL,
+  `member_id` INT NOT NULL,
+  PRIMARY KEY (`ctf_team_id`, `member_id`),
+  INDEX `fk_ctf_team_has_member_member1_idx` (`member_id` ASC) VISIBLE,
+  INDEX `fk_ctf_team_has_member_ctf_team1_idx` (`ctf_team_id` ASC) VISIBLE,
+  CONSTRAINT `fk_ctf_team_has_member_ctf_team1`
     FOREIGN KEY (`ctf_team_id`)
     REFERENCES `keeper`.`ctf_team` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_ctf_team_has_member_member1`
+  CONSTRAINT `fk_ctf_team_has_member_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -897,28 +897,28 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_team_has_member` (
 DROP TABLE IF EXISTS `keeper`.`ctf_flag` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_flag` (
-                                                   `id` INT NOT NULL AUTO_INCREMENT,
-                                                   `content` VARCHAR(200) NOT NULL DEFAULT 'DEFAULT_FLAG_CONTENT',
-    `team_id` INT NOT NULL DEFAULT 1,
-    `challenge_id` INT NOT NULL DEFAULT 1,
-    `is_correct` TINYINT NOT NULL DEFAULT 0,
-    `solved_time` DATETIME NULL,
-    `last_try_time` DATETIME NULL,
-    `remained_submit_count` INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (`id`),
-    INDEX `fk_ctf_flag_ctf_team1_idx` (`team_id` ASC) INVISIBLE,
-    INDEX `fk_ctf_flag_ctf_challenge1_idx` (`challenge_id` ASC) VISIBLE,
-    CONSTRAINT `fk_ctf_flag_ctf_team1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` VARCHAR(200) NOT NULL DEFAULT 'DEFAULT_FLAG_CONTENT',
+  `team_id` INT NOT NULL DEFAULT 1,
+  `challenge_id` INT NOT NULL DEFAULT 1,
+  `is_correct` TINYINT NOT NULL DEFAULT 0,
+  `solved_time` DATETIME NULL,
+  `last_try_time` DATETIME NULL,
+  `remained_submit_count` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  INDEX `fk_ctf_flag_ctf_team1_idx` (`team_id` ASC) INVISIBLE,
+  INDEX `fk_ctf_flag_ctf_challenge1_idx` (`challenge_id` ASC) VISIBLE,
+  CONSTRAINT `fk_ctf_flag_ctf_team1`
     FOREIGN KEY (`team_id`)
     REFERENCES `keeper`.`ctf_team` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_ctf_flag_ctf_challenge1`
+  CONSTRAINT `fk_ctf_flag_ctf_challenge1`
     FOREIGN KEY (`challenge_id`)
     REFERENCES `keeper`.`ctf_challenge` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -927,24 +927,24 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_flag` (
 DROP TABLE IF EXISTS `keeper`.`ctf_submit_log` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_submit_log` (
-                                                         `id` INT NOT NULL AUTO_INCREMENT,
-                                                         `submit_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `flag_submitted` VARCHAR(200) NULL DEFAULT 'DEFAULT_FLAG_SUBMITTED',
-    `is_correct` TINYINT NOT NULL DEFAULT 0,
-    `team_name` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_TEAM_NAME',
-    `submitter_login_id` VARCHAR(80) NOT NULL DEFAULT 'DEFAULT_SUBMITTER_LOGIN_ID',
-    `submitter_realname` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_SUBMITTER_REALNAME',
-    `challenge_name` VARCHAR(200) NOT NULL DEFAULT 'DEFAULT_CHALLENGE_NAME',
-    `contest_name` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_CONTEST_NAME',
-    `ctf_contest_id` INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (`id`),
-    INDEX `fk_ctf_submit_log_ctf_contest1_idx` (`ctf_contest_id` ASC) VISIBLE,
-    CONSTRAINT `fk_ctf_submit_log_ctf_contest1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `submit_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `flag_submitted` VARCHAR(200) NULL DEFAULT 'DEFAULT_FLAG_SUBMITTED',
+  `is_correct` TINYINT NOT NULL DEFAULT 0,
+  `team_name` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_TEAM_NAME',
+  `submitter_login_id` VARCHAR(80) NOT NULL DEFAULT 'DEFAULT_SUBMITTER_LOGIN_ID',
+  `submitter_realname` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_SUBMITTER_REALNAME',
+  `challenge_name` VARCHAR(200) NOT NULL DEFAULT 'DEFAULT_CHALLENGE_NAME',
+  `contest_name` VARCHAR(45) NOT NULL DEFAULT 'DEFAULT_CONTEST_NAME',
+  `ctf_contest_id` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  INDEX `fk_ctf_submit_log_ctf_contest1_idx` (`ctf_contest_id` ASC) VISIBLE,
+  CONSTRAINT `fk_ctf_submit_log_ctf_contest1`
     FOREIGN KEY (`ctf_contest_id`)
     REFERENCES `keeper`.`ctf_contest` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -953,17 +953,17 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_submit_log` (
 DROP TABLE IF EXISTS `keeper`.`ctf_dynamic_challenge_info` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_dynamic_challenge_info` (
-                                                                     `challenge_id` INT NOT NULL DEFAULT 1,
-                                                                     `min_score` INT NOT NULL DEFAULT 1,
-                                                                     `max_score` INT NOT NULL DEFAULT 100,
-                                                                     PRIMARY KEY (`challenge_id`),
-    INDEX `fk_ctf_dynamic_challenge_info_ctf_challenge1_idx` (`challenge_id` ASC) VISIBLE,
-    CONSTRAINT `fk_ctf_dynamic_challenge_info_ctf_challenge1`
+  `challenge_id` INT NOT NULL DEFAULT 1,
+  `min_score` INT NOT NULL DEFAULT 1,
+  `max_score` INT NOT NULL DEFAULT 100,
+  PRIMARY KEY (`challenge_id`),
+  INDEX `fk_ctf_dynamic_challenge_info_ctf_challenge1_idx` (`challenge_id` ASC) VISIBLE,
+  CONSTRAINT `fk_ctf_dynamic_challenge_info_ctf_challenge1`
     FOREIGN KEY (`challenge_id`)
     REFERENCES `keeper`.`ctf_challenge` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -972,20 +972,20 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_dynamic_challenge_info` (
 DROP TABLE IF EXISTS `keeper`.`election` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`election` (
-                                                   `id` INT NOT NULL AUTO_INCREMENT,
-                                                   `name` VARCHAR(45) NOT NULL,
-    `description` VARCHAR(200) NULL,
-    `creator` INT NOT NULL,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `is_available` TINYINT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    INDEX `fk_election_member1_idx` (`creator` ASC) VISIBLE,
-    CONSTRAINT `fk_election_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(200) NULL,
+  `creator` INT NOT NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `is_available` TINYINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `fk_election_member1_idx` (`creator` ASC) VISIBLE,
+  CONSTRAINT `fk_election_member1`
     FOREIGN KEY (`creator`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -994,22 +994,22 @@ CREATE TABLE IF NOT EXISTS `keeper`.`election` (
 DROP TABLE IF EXISTS `keeper`.`election_voter` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`election_voter` (
-                                                         `voter_id` INT NOT NULL DEFAULT 1,
-                                                         `election_id` INT NOT NULL DEFAULT 1,
-                                                         `is_voted` TINYINT NOT NULL DEFAULT 0,
-                                                         PRIMARY KEY (`election_id`, `voter_id`),
-    INDEX `fk_election_voter_election1_idx` (`election_id` ASC) VISIBLE,
-    CONSTRAINT `fk_election_voter_member1`
+  `voter_id` INT NOT NULL DEFAULT 1,
+  `election_id` INT NOT NULL DEFAULT 1,
+  `is_voted` TINYINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`election_id`, `voter_id`),
+  INDEX `fk_election_voter_election1_idx` (`election_id` ASC) VISIBLE,
+  CONSTRAINT `fk_election_voter_member1`
     FOREIGN KEY (`voter_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_election_voter_election1`
+  CONSTRAINT `fk_election_voter_election1`
     FOREIGN KEY (`election_id`)
     REFERENCES `keeper`.`election` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1018,33 +1018,33 @@ CREATE TABLE IF NOT EXISTS `keeper`.`election_voter` (
 DROP TABLE IF EXISTS `keeper`.`election_candidate` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`election_candidate` (
-                                                             `id` INT NOT NULL AUTO_INCREMENT,
-                                                             `election_id` INT NOT NULL DEFAULT 1,
-                                                             `candidate_id` INT NOT NULL DEFAULT 1,
-                                                             `member_job_id` INT NOT NULL DEFAULT 9,
-                                                             `description` VARCHAR(200) NULL,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `vote_count` INT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    INDEX `fk_election_candidate_member_job1_idx` (`member_job_id` ASC) VISIBLE,
-    INDEX `fk_election_candidate_member1_idx` (`candidate_id` ASC) VISIBLE,
-    INDEX `fk_election_candidate_election1_idx` (`election_id` ASC) VISIBLE,
-    CONSTRAINT `fk_election_candidate_member_job1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `election_id` INT NOT NULL DEFAULT 1,
+  `candidate_id` INT NOT NULL DEFAULT 1,
+  `member_job_id` INT NOT NULL DEFAULT 9,
+  `description` VARCHAR(200) NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `vote_count` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `fk_election_candidate_member_job1_idx` (`member_job_id` ASC) VISIBLE,
+  INDEX `fk_election_candidate_member1_idx` (`candidate_id` ASC) VISIBLE,
+  INDEX `fk_election_candidate_election1_idx` (`election_id` ASC) VISIBLE,
+  CONSTRAINT `fk_election_candidate_member_job1`
     FOREIGN KEY (`member_job_id`)
     REFERENCES `keeper`.`member_job` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_election_candidate_member1`
+  CONSTRAINT `fk_election_candidate_member1`
     FOREIGN KEY (`candidate_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_election_candidate_election1`
+  CONSTRAINT `fk_election_candidate_election1`
     FOREIGN KEY (`election_id`)
     REFERENCES `keeper`.`election` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1053,17 +1053,17 @@ CREATE TABLE IF NOT EXISTS `keeper`.`election_candidate` (
 DROP TABLE IF EXISTS `keeper`.`election_chart_log` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`election_chart_log` (
-                                                             `id` INT NOT NULL AUTO_INCREMENT,
-                                                             `vote_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `election_candidate_id` INT NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_election_chart_log_election_candidate1_idx` (`election_candidate_id` ASC) VISIBLE,
-    CONSTRAINT `fk_election_chart_log_election_candidate1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `vote_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `election_candidate_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_election_chart_log_election_candidate1_idx` (`election_candidate_id` ASC) VISIBLE,
+  CONSTRAINT `fk_election_chart_log_election_candidate1`
     FOREIGN KEY (`election_candidate_id`)
     REFERENCES `keeper`.`election_candidate` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1072,16 +1072,16 @@ CREATE TABLE IF NOT EXISTS `keeper`.`election_chart_log` (
 DROP TABLE IF EXISTS `keeper`.`survey` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`survey` (
-                                                 `id` INT NOT NULL AUTO_INCREMENT,
-                                                 `open_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `close_time` DATETIME NULL,
-    `name` VARCHAR(100) NULL,
-    `description` VARCHAR(200) NULL,
-    `is_visible` TINYINT NOT NULL DEFAULT 0,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `open_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `close_time` DATETIME NULL,
+  `name` VARCHAR(100) NULL,
+  `description` VARCHAR(200) NULL,
+  `is_visible` TINYINT NOT NULL DEFAULT 0,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1090,10 +1090,10 @@ CREATE TABLE IF NOT EXISTS `keeper`.`survey` (
 DROP TABLE IF EXISTS `keeper`.`survey_reply` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`survey_reply` (
-                                                       `id` INT NOT NULL AUTO_INCREMENT,
-                                                       `type` VARCHAR(10) NOT NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `type` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1102,32 +1102,32 @@ CREATE TABLE IF NOT EXISTS `keeper`.`survey_reply` (
 DROP TABLE IF EXISTS `keeper`.`survey_member_reply` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`survey_member_reply` (
-                                                              `id` INT NOT NULL AUTO_INCREMENT,
-                                                              `member_id` INT NOT NULL DEFAULT 1,
-                                                              `survey_id` INT NOT NULL DEFAULT 1,
-                                                              `reply_id` INT NOT NULL DEFAULT 1,
-                                                              `reply_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    PRIMARY KEY (`id`),
-    INDEX `fk_survey_member_reply_member1_idx` (`member_id` ASC) VISIBLE,
-    INDEX `fk_survey_member_reply_survey1_idx` (`survey_id` ASC) VISIBLE,
-    INDEX `fk_survey_member_reply_survey_reply1_idx` (`reply_id` ASC) VISIBLE,
-    UNIQUE INDEX `is_reply_duplicated` (`member_id` ASC, `survey_id` ASC) INVISIBLE,
-    CONSTRAINT `fk_survey_member_reply_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `member_id` INT NOT NULL DEFAULT 1,
+  `survey_id` INT NOT NULL DEFAULT 1,
+  `reply_id` INT NOT NULL DEFAULT 1,
+  `reply_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  PRIMARY KEY (`id`),
+  INDEX `fk_survey_member_reply_member1_idx` (`member_id` ASC) VISIBLE,
+  INDEX `fk_survey_member_reply_survey1_idx` (`survey_id` ASC) VISIBLE,
+  INDEX `fk_survey_member_reply_survey_reply1_idx` (`reply_id` ASC) VISIBLE,
+  UNIQUE INDEX `is_reply_duplicated` (`member_id` ASC, `survey_id` ASC) INVISIBLE,
+  CONSTRAINT `fk_survey_member_reply_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_survey_member_reply_survey1`
+  CONSTRAINT `fk_survey_member_reply_survey1`
     FOREIGN KEY (`survey_id`)
     REFERENCES `keeper`.`survey` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_survey_member_reply_survey_reply1`
+  CONSTRAINT `fk_survey_member_reply_survey_reply1`
     FOREIGN KEY (`reply_id`)
     REFERENCES `keeper`.`survey_reply` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1136,15 +1136,15 @@ CREATE TABLE IF NOT EXISTS `keeper`.`survey_member_reply` (
 DROP TABLE IF EXISTS `keeper`.`survey_reply_excuse` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`survey_reply_excuse` (
-                                                              `survey_member_reply_id` INT NOT NULL DEFAULT 1,
-                                                              `rest_excuse` VARCHAR(200) NOT NULL,
-    PRIMARY KEY (`survey_member_reply_id`),
-    CONSTRAINT `fk_survey_reply_excuse_survey_member_reply1`
+  `survey_member_reply_id` INT NOT NULL DEFAULT 1,
+  `rest_excuse` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`survey_member_reply_id`),
+  CONSTRAINT `fk_survey_reply_excuse_survey_member_reply1`
     FOREIGN KEY (`survey_member_reply_id`)
     REFERENCES `keeper`.`survey_member_reply` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1153,24 +1153,24 @@ CREATE TABLE IF NOT EXISTS `keeper`.`survey_reply_excuse` (
 DROP TABLE IF EXISTS `keeper`.`seminar` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`seminar` (
-                                                  `id` INT NOT NULL AUTO_INCREMENT,
-                                                  `open_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `attendance_start_time` DATETIME NULL,
-    `attendance_close_time` DATETIME NULL,
-    `lateness_close_time` DATETIME NULL,
-    `attendance_code` VARCHAR(10) NULL,
-    `name` VARCHAR(100) NULL,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `starter_id` INT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_seminar_member1_idx` (`starter_id` ASC) VISIBLE,
-    CONSTRAINT `fk_seminar_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `open_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `attendance_start_time` DATETIME NULL,
+  `attendance_close_time` DATETIME NULL,
+  `lateness_close_time` DATETIME NULL,
+  `attendance_code` VARCHAR(10) NULL,
+  `name` VARCHAR(100) NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `starter_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_seminar_member1_idx` (`starter_id` ASC) VISIBLE,
+  CONSTRAINT `fk_seminar_member1`
     FOREIGN KEY (`starter_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1179,10 +1179,10 @@ CREATE TABLE IF NOT EXISTS `keeper`.`seminar` (
 DROP TABLE IF EXISTS `keeper`.`seminar_attendance_status` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`seminar_attendance_status` (
-                                                                    `id` INT NOT NULL AUTO_INCREMENT,
-                                                                    `type` VARCHAR(10) NOT NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `type` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1191,32 +1191,32 @@ CREATE TABLE IF NOT EXISTS `keeper`.`seminar_attendance_status` (
 DROP TABLE IF EXISTS `keeper`.`seminar_attendance` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`seminar_attendance` (
-                                                             `id` INT NOT NULL AUTO_INCREMENT,
-                                                             `seminar_id` INT NOT NULL DEFAULT 1,
-                                                             `member_id` INT NOT NULL DEFAULT 1,
-                                                             `status_id` INT NOT NULL DEFAULT 1,
-                                                             `attend_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    PRIMARY KEY (`id`),
-    INDEX `fk_seminar_attendance_seminar1_idx` (`seminar_id` ASC) VISIBLE,
-    INDEX `fk_seminar_attendance_member1_idx` (`member_id` ASC) VISIBLE,
-    INDEX `fk_seminar_attendance_seminar_attendance_status1_idx` (`status_id` ASC) VISIBLE,
-    UNIQUE INDEX `is_seminar_attendance_duplicated` (`member_id` ASC, `seminar_id` ASC) VISIBLE,
-    CONSTRAINT `fk_seminar_attendance_seminar1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `seminar_id` INT NOT NULL DEFAULT 1,
+  `member_id` INT NOT NULL DEFAULT 1,
+  `status_id` INT NOT NULL DEFAULT 1,
+  `attend_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  PRIMARY KEY (`id`),
+  INDEX `fk_seminar_attendance_seminar1_idx` (`seminar_id` ASC) VISIBLE,
+  INDEX `fk_seminar_attendance_member1_idx` (`member_id` ASC) VISIBLE,
+  INDEX `fk_seminar_attendance_seminar_attendance_status1_idx` (`status_id` ASC) VISIBLE,
+  UNIQUE INDEX `is_seminar_attendance_duplicated` (`member_id` ASC, `seminar_id` ASC) VISIBLE,
+  CONSTRAINT `fk_seminar_attendance_seminar1`
     FOREIGN KEY (`seminar_id`)
     REFERENCES `keeper`.`seminar` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_seminar_attendance_member1`
+  CONSTRAINT `fk_seminar_attendance_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_seminar_attendance_seminar_attendance_status1`
+  CONSTRAINT `fk_seminar_attendance_seminar_attendance_status1`
     FOREIGN KEY (`status_id`)
     REFERENCES `keeper`.`seminar_attendance_status` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1225,15 +1225,15 @@ CREATE TABLE IF NOT EXISTS `keeper`.`seminar_attendance` (
 DROP TABLE IF EXISTS `keeper`.`seminar_attendance_excuse` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`seminar_attendance_excuse` (
-                                                                    `seminar_attendance_id` INT NOT NULL,
-                                                                    `absence_excuse` VARCHAR(200) NOT NULL,
-    PRIMARY KEY (`seminar_attendance_id`),
-    CONSTRAINT `fk_seminar_attendance_excuse_seminar_attendance1`
+  `seminar_attendance_id` INT NOT NULL,
+  `absence_excuse` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`seminar_attendance_id`),
+  CONSTRAINT `fk_seminar_attendance_excuse_seminar_attendance1`
     FOREIGN KEY (`seminar_attendance_id`)
     REFERENCES `keeper`.`seminar_attendance` (`id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1242,12 +1242,12 @@ CREATE TABLE IF NOT EXISTS `keeper`.`seminar_attendance_excuse` (
 DROP TABLE IF EXISTS `keeper`.`merit_type` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`merit_type` (
-                                                     `id` INT NOT NULL AUTO_INCREMENT,
-                                                     `merit` INT NOT NULL DEFAULT 0,
-                                                     `detail` VARCHAR(45) NULL,
-    `is_merit` TINYINT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `merit` INT NOT NULL DEFAULT 0,
+  `detail` VARCHAR(45) NULL,
+  `is_merit` TINYINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1256,20 +1256,20 @@ CREATE TABLE IF NOT EXISTS `keeper`.`merit_type` (
 DROP TABLE IF EXISTS `keeper`.`merit_log` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`merit_log` (
-                                                    `id` INT NOT NULL AUTO_INCREMENT,
-                                                    `member_id` INT NOT NULL DEFAULT 1,
-                                                    `member_realname` VARCHAR(45) NOT NULL,
-    `member_generation` VARCHAR(45) NOT NULL,
-    `time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `merit_type_id` INT NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_merit_log_merit_type1_idx` (`merit_type_id` ASC) VISIBLE,
-    CONSTRAINT `fk_merit_log_merit_type1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `member_id` INT NOT NULL DEFAULT 1,
+  `member_realname` VARCHAR(45) NOT NULL,
+  `member_generation` VARCHAR(45) NOT NULL,
+  `time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `merit_type_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_merit_log_merit_type1_idx` (`merit_type_id` ASC) VISIBLE,
+  CONSTRAINT `fk_merit_log_merit_type1`
     FOREIGN KEY (`merit_type_id`)
     REFERENCES `keeper`.`merit_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1278,23 +1278,23 @@ CREATE TABLE IF NOT EXISTS `keeper`.`merit_log` (
 DROP TABLE IF EXISTS `keeper`.`ctf_challenge_has_ctf_challenge_category` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge_has_ctf_challenge_category` (
-                                                                                   `id` INT NOT NULL AUTO_INCREMENT,
-                                                                                   `ctf_challenge_id` INT NOT NULL,
-                                                                                   `ctf_challenge_category_id` INT NOT NULL,
-                                                                                   PRIMARY KEY (`id`),
-    INDEX `fk_ctf_challenge_has_ctf_challenge_category_ctf_challenge_c_idx` (`ctf_challenge_category_id` ASC) VISIBLE,
-    INDEX `fk_ctf_challenge_has_ctf_challenge_category_ctf_challenge1_idx` (`ctf_challenge_id` ASC) VISIBLE,
-    CONSTRAINT `fk_ctf_challenge_has_ctf_challenge_category_ctf_challenge1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `ctf_challenge_id` INT NOT NULL,
+  `ctf_challenge_category_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_ctf_challenge_has_ctf_challenge_category_ctf_challenge_c_idx` (`ctf_challenge_category_id` ASC) VISIBLE,
+  INDEX `fk_ctf_challenge_has_ctf_challenge_category_ctf_challenge1_idx` (`ctf_challenge_id` ASC) VISIBLE,
+  CONSTRAINT `fk_ctf_challenge_has_ctf_challenge_category_ctf_challenge1`
     FOREIGN KEY (`ctf_challenge_id`)
     REFERENCES `keeper`.`ctf_challenge` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_ctf_challenge_has_ctf_challenge_category_ctf_challenge_cat1`
+  CONSTRAINT `fk_ctf_challenge_has_ctf_challenge_category_ctf_challenge_cat1`
     FOREIGN KEY (`ctf_challenge_category_id`)
     REFERENCES `keeper`.`ctf_challenge_category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1303,22 +1303,22 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge_has_ctf_challenge_category` (
 DROP TABLE IF EXISTS `keeper`.`posting_has_file` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`posting_has_file` (
-                                                           `posting_id` INT NOT NULL,
-                                                           `file_id` INT NOT NULL,
-                                                           PRIMARY KEY (`posting_id`, `file_id`),
-    INDEX `fk_posting_has_file_file1_idx` (`file_id` ASC) VISIBLE,
-    INDEX `fk_posting_has_file_posting1_idx` (`posting_id` ASC) VISIBLE,
-    CONSTRAINT `fk_posting_has_file_posting1`
+  `posting_id` INT NOT NULL,
+  `file_id` INT NOT NULL,
+  PRIMARY KEY (`posting_id`, `file_id`),
+  INDEX `fk_posting_has_file_file1_idx` (`file_id` ASC) VISIBLE,
+  INDEX `fk_posting_has_file_posting1_idx` (`posting_id` ASC) VISIBLE,
+  CONSTRAINT `fk_posting_has_file_posting1`
     FOREIGN KEY (`posting_id`)
     REFERENCES `keeper`.`posting` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_posting_has_file_file1`
+  CONSTRAINT `fk_posting_has_file_file1`
     FOREIGN KEY (`file_id`)
     REFERENCES `keeper`.`file` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1327,22 +1327,22 @@ CREATE TABLE IF NOT EXISTS `keeper`.`posting_has_file` (
 DROP TABLE IF EXISTS `keeper`.`ctf_challenge_has_file` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge_has_file` (
-                                                                 `ctf_challenge_id` INT NOT NULL,
-                                                                 `file_id` INT NOT NULL,
-                                                                 PRIMARY KEY (`ctf_challenge_id`, `file_id`),
-    INDEX `fk_ctf_challenge_has_file_file1_idx` (`file_id` ASC) VISIBLE,
-    INDEX `fk_ctf_challenge_has_file_ctf_challenge1_idx` (`ctf_challenge_id` ASC) VISIBLE,
-    CONSTRAINT `fk_ctf_challenge_has_file_ctf_challenge1`
+  `ctf_challenge_id` INT NOT NULL,
+  `file_id` INT NOT NULL,
+  PRIMARY KEY (`ctf_challenge_id`, `file_id`),
+  INDEX `fk_ctf_challenge_has_file_file1_idx` (`file_id` ASC) VISIBLE,
+  INDEX `fk_ctf_challenge_has_file_ctf_challenge1_idx` (`ctf_challenge_id` ASC) VISIBLE,
+  CONSTRAINT `fk_ctf_challenge_has_file_ctf_challenge1`
     FOREIGN KEY (`ctf_challenge_id`)
     REFERENCES `keeper`.`ctf_challenge` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_ctf_challenge_has_file_file1`
+  CONSTRAINT `fk_ctf_challenge_has_file_file1`
     FOREIGN KEY (`file_id`)
     REFERENCES `keeper`.`file` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1351,22 +1351,22 @@ CREATE TABLE IF NOT EXISTS `keeper`.`ctf_challenge_has_file` (
 DROP TABLE IF EXISTS `keeper`.`book_borrow_log` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`book_borrow_log` (
-                                                          `id` INT NOT NULL AUTO_INCREMENT,
-                                                          `borrow_date` DATE NULL,
-                                                          `expire_date` DATE NULL,
-                                                          `return_date` DATE NULL,
-                                                          `reject_date` DATE NULL,
-                                                          `book_id` INT NOT NULL,
-                                                          `book_title` VARCHAR(250) NOT NULL,
-    `book_author` VARCHAR(40) NOT NULL,
-    `borrow_id` INT NOT NULL,
-    `status` VARCHAR(40) NOT NULL,
-    `member_id` INT NOT NULL,
-    `member_realname` VARCHAR(40) NOT NULL,
-    `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `borrow_date` DATE NULL,
+  `expire_date` DATE NULL,
+  `return_date` DATE NULL,
+  `reject_date` DATE NULL,
+  `book_id` INT NOT NULL,
+  `book_title` VARCHAR(250) NOT NULL,
+  `book_author` VARCHAR(40) NOT NULL,
+  `borrow_id` INT NOT NULL,
+  `status` VARCHAR(40) NOT NULL,
+  `member_id` INT NOT NULL,
+  `member_realname` VARCHAR(40) NOT NULL,
+  `register_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  `update_time` DATETIME NOT NULL DEFAULT (CURRENT_TIME),
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -1375,23 +1375,23 @@ CREATE TABLE IF NOT EXISTS `keeper`.`book_borrow_log` (
 DROP TABLE IF EXISTS `keeper`.`member_read_posting` ;
 
 CREATE TABLE IF NOT EXISTS `keeper`.`member_read_posting` (
-                                                              `id` INT NOT NULL AUTO_INCREMENT,
-                                                              `member_id` INT NOT NULL,
-                                                              `posting_id` INT NOT NULL,
-                                                              PRIMARY KEY (`id`),
-    INDEX `fk_member_read_posting_member1_idx` (`member_id` ASC) VISIBLE,
-    INDEX `fk_member_read_posting_posting1_idx` (`posting_id` ASC) VISIBLE,
-    CONSTRAINT `fk_member_read_posting_member1`
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `member_id` INT NOT NULL,
+  `posting_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_member_read_posting_member1_idx` (`member_id` ASC) VISIBLE,
+  INDEX `fk_member_read_posting_posting1_idx` (`posting_id` ASC) VISIBLE,
+  CONSTRAINT `fk_member_read_posting_member1`
     FOREIGN KEY (`member_id`)
     REFERENCES `keeper`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_member_read_posting_posting1`
+  CONSTRAINT `fk_member_read_posting_posting1`
     FOREIGN KEY (`posting_id`)
     REFERENCES `keeper`.`posting` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 USE `keeper`;
 
@@ -1438,7 +1438,7 @@ DROP TRIGGER IF EXISTS `keeper`.`attendance_AFTER_INSERT` $$
 USE `keeper`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `keeper`.`attendance_AFTER_INSERT` AFTER INSERT ON `attendance` FOR EACH ROW
 BEGIN
-UPDATE member SET total_attendance = total_attendance + 1 WHERE id = NEW.member_id;
+	UPDATE member SET total_attendance = total_attendance + 1 WHERE id = NEW.member_id;
 END$$
 
 
@@ -1465,7 +1465,7 @@ DROP TRIGGER IF EXISTS `keeper`.`ctf_contest_BEFORE_DELETE` $$
 USE `keeper`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `keeper`.`ctf_contest_BEFORE_DELETE` BEFORE DELETE ON `ctf_contest` FOR EACH ROW
 BEGIN
-UPDATE ctf_submit_log SET ctf_contest_id = 1 WHERE ctf_contest_id = OLD.id;
+	UPDATE ctf_submit_log SET ctf_contest_id = 1 WHERE ctf_contest_id = OLD.id;
 END$$
 
 
@@ -1494,7 +1494,7 @@ CREATE DEFINER = CURRENT_USER TRIGGER `keeper`.`survey_BEFORE_INSERT` BEFORE INS
 BEGIN
 	IF NEW.name IS NULL THEN
         SET NEW.name = DATE_FORMAT(CURRENT_TIME,'%Y%m%d_활동인원조사');
-END IF;
+    END IF;
 END$$
 
 
@@ -1514,7 +1514,7 @@ CREATE DEFINER = CURRENT_USER TRIGGER `keeper`.`seminar_BEFORE_INSERT` BEFORE IN
 BEGIN
 	IF NEW.name IS NULL THEN
         SET NEW.name = DATE_FORMAT(NEW.open_time,'%Y-%m-%d');
-END IF;
+    END IF;
 END$$
 
 
